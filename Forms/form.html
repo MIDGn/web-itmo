@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<meta charset='utf-8'/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>	
+	</head>
+
+<body>
+	
+	<H1>Заявление в полицию</H1>
+
+	<form>
+		<fieldset>
+			<legend>Контактная информация</legend>
+			<ul class="contact">
+    			<li class="row">
+      				<label>ФИО:</label> <input type="text" name="fullname"/><br>
+    			</li>
+    			<li class="row">
+     				<label>Адрес регистрации:</label> <input type="text" name="registration"/><br>
+    			</li>
+    			<li class="row">
+      				<label>Контактный телефон:</label> <input type="text" name="phone_number"/><br>
+    			</li>
+  			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Основная информация</legend>
+			<p class="crime_type">Тип преступления: 
+				<select name="crime">
+					<option checked>Не выбрано</option>
+					<option value="offense">Разбойное нападение</option>
+					<option value="rape">Насильственные действия</option>
+					<option value="robbery">Ограбление</option>
+					<option value="corruption">Вымогательство взятки</option>
+					<option value="lost">Пропажа человека</option>
+				</select>
+			</p>	
+			<p class="crime_dt">Дата и примерное время совершения преступления: <input type="datetime-local" name="crime_datetime"/></p>
+			<p class="crime_pl">Место совершения преступления: <input type="text" size="50" name="crime_place"/></p>
+			<p class="people">Были ли свидетели? <br>
+			<input type="radio" name="evidence" value="yes"/> Да <br>
+			<input type="radio" name="evidence" value="no"/> Нет
+			</p>
+			<p class="criminal">Знаете ли Вы лицо, совершившее преступление? <br>
+			<input type="radio" name="identification" value="yes"/> Да <br>
+			<input type="radio" name="identification" value="no"/> Нет
+			</p>
+			Опишите ситуацию подробнее: <br>
+			<textarea rows="10" cols="70">Особые приметы преступников, обстоятельства и т.п. </textarea>
+		</fieldset>	
+		<input type="submit" name="submit" value="Отправить"/>
+	</form>
+</body>
+
+</html>

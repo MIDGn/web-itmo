@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<meta charset='utf-8'/>
+	</head>
+
+<body>
+
+	<script>
+		var str_main = 'Hello, my dear friend from London!';
+		var word_array = str_main.split(' ');
+		var numChars = str_main.match(/[a-zA-Z]/g).length;
+		document.write(str_main + '<br>');
+		document.write('Количество слов в предложении: ' + word_array.length + '<br>');
+		document.write('Количество букв в предложении: ' + numChars + '<br>');
+		
+		document.write(document.URL + '<br>');
+
+		var i = document.URL.indexOf(':');
+		var protocol = document.URL.substring(0,i);
+		document.write('Имя протокола: ' + protocol + '<br>');
+
+		i = document.URL.lastIndexOf('/', document.URL.length);
+		var extension = document.URL.substring(i + 1, document.URL.length);
+		document.write('Имя файла и расширение: ' + extension + '<br>');
+
+
+		var parameters_link = 'http://site.ru/index.php?name=Георгий&surname=Коновалов&age=21';
+		document.write(parameters_link + '<br>');
+
+		i = parameters_link.indexOf('?');
+		var new_end = parameters_link.lastIndexOf('&');
+		var parameters_array = [];
+
+		while(new_end > 0){
+
+			document.write('Параметр: ' + parameters_link.substring(new_end + 1, parameters_link.length) + '<br>');
+			var one_parameter_array = parameters_link.substring(new_end + 1, parameters_link.length).split('=');
+			var parameters_object = {};
+			parameters_object.name = one_parameter_array[0];
+			parameters_object.value = one_parameter_array[1];
+			parameters_array.unshift(parameters_object);
+			parameters_link = parameters_link.substring(0, new_end);
+			new_end = parameters_link.lastIndexOf('&');
+
+		}
+
+		document.write('Параметр: ', parameters_link.substring(i + 1, parameters_link.length) + '<br>');
+		var one_parameter_array = parameters_link.substring(i + 1, parameters_link.length).split('=');
+		var parameters_object = {};
+		parameters_object.name = one_parameter_array[0];
+		parameters_object.value = one_parameter_array[1];
+		parameters_array.unshift(parameters_object);
+
+		for (k = 0; k < parameters_array.length; k++){
+
+			document.write(parameters_array[k].name + ' = ' + parameters_array[k].value + '<br>');
+		
+		}
+	</script>
+	<br>
+	<a name="anchor_1">Внутренняя метка №1</a>
+	<br>
+	<a name="anchor_2">Внутренняя метка №2</a>
+	<br>
+	<a href="http://twitch.tv"> Twitch </a>
+	<br>
+	<a href="http://youtube.com"> Youtube </a>
+	<br>
+	<!-- <img src="image1.jpg" id="0" width="600" height="600" >
+	<br> -->
+	<img src="image2.jpg" id="1" width="750" height="750" >
+	<br>
+	<img src="image3.jpg" id="1" width="700" height="700" >
+	<br>
+	<br>
+	<script>
+
+		array_a = document.getElementsByTagName("a");
+
+		anchor_count = 0;
+		first_anchor = -1;
+
+		for (i = 0; i< array_a.length; i++){
+		
+			if (array_a[i] == ""){
+
+				if (first_anchor == -1) {first_anchor = i;}
+				anchor_count++;
+		
+			} 
+
+		}		
+
+		document.write('Количество внутренних меток: ' + anchor_count + '<br>'); 
+		document.write('Количество ссылок: ' + (array_a.length - anchor_count) + '<br>');
+		document.write(array_a[first_anchor].innerHTML + '<br>');
+
+		x = document.getElementsByTagName("img");
+		document.write('Количество картинок = ' + x.length + '<br>');
+		document.write('Ширина первой картинки: ' + x[0].width + '<br>');
+
+		max_width = 0;
+
+		for (i = 0; i < x.length; i++){
+
+			if (x[i].width > max_width){
+
+				max_width = x[i].width
+		
+			}
+		}
+	
+		document.write('Максимальная ширина: ' + max_width + '<br>');
+
+		var sum_heigth = 0; 
+		for (i = 0; i < x.length; i++){
+
+			sum_heigth = sum_heigth + x[i].height;
+
+		}
+		document.write('Сумма высот: ' + sum_heigth + '<br>');
+
+	</script>
+	<br>
+	<form name="name_form_1" id="form_1">
+		<legend>ФИО</legend><input id="reg" type="text" name="fullname">
+		<br>
+		<legend>Возраст:</legend>
+			<select name="age">
+				<option checked>Не выбрано</option>
+				<option value="young">меньше 18</option>
+				<option value="student">18 - 27</option>
+				<option value="man">28 - 50</option>
+				<option value="old_man">больше 50</option>
+			</select> 
+		<br>
+    	<input onclick="alert(form.name)" type="button" name="but1_form_1" value="Показать имя формы:">
+    	<input onclick="alert(form.id)" type="button" name="but2_form_1" value="Принадлежность">
+    	<input onclick="form.reset()" type="button" name="but3_form_1" value="Сбросить">
+    	<input onclick="Count_fields(form.id)" type="button" name="but4_form_1" value="Показать количество полей">
+	 </form>
+
+	<br>
+    <br>
+
+
+
+	<form name="name_form_2" id="form_2">
+		Адрес электронной почты   <input id="reg" type="text" name="e-mail">
+		<br>
+		Присылать уведомления по почте?
+		<br>
+		<input type="radio" name="alerts" value="yes"/> Да 
+		<br>
+		<input type="radio" name="alerts" value="no"/> Нет
+		<br>
+		<input onclick="alert(form.name)" type="button" name="but1_form_2" value="Показать имя формы:"> 
+		<input onclick="alert(form.id)" type="button" name="but2_form_2" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_2" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_2" value="Показать количество полей">
+	</form>
+
+
+
+
+	<form name="name_form_3" id="form_3">
+		<input onclick="alert(form.name)" type="button" name="but1_form_3" value="Показать имя формы:"> 
+		<input onclick="alert(form.id)" type="button" name="but2_form_3" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_3" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_3" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_4" id="from_4">
+		<input onclick="alert(form.name)" type="button" name="but1_form_4" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_4" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_4" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_4" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_5" id="form_5">
+		<input onclick="alert(form.name)" type="button" name="but1_form_5" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_5" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_5" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_5" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_6" id="form_6">
+		<input onclick="alert(form.name)" type="button" name="but1_form_6" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_6" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_6" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_6" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_7" id="form_7">
+		<input onclick="alert(form.name)" type="button" name="but1_form_7" value="Показать имя формы:"> 
+		<input onclick="alert(form.id)" type="button" name="but2_form_7" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_7" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_7" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_8" id="form_8">
+		<input onclick="alert(form.name)" type="button" name="but1_form_8" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_8" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_8" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_8" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_9" id="form_9"> 
+		<input onclick="alert(form.name)" type="button" name="but1_form_9" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_9" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_9" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_9" value="Показать количество полей">
+	</form>
+
+	<form name="name_form_10" id="form_10">
+		<input type="radio" name="alerts" value="yes"/> Нужно нажать
+		<br>
+		<input onclick="alert(form.name)" type="button" name="but1_form_10" value="Показать имя формы:">
+		<input onclick="alert(form.id)" type="button" name="but2_form_10" value="Принадлежность">
+		<input onclick="form.reset()" type="button" name="but3_form_10" value="Сбросить">
+		<input onclick="Count_fields(form.id)" type="button" name="but4_form_10" value="Показать количество полей">
+	</form>
+	<br>
+	<script>	 
+		x = document.getElementsByTagName("form");
+		document.write("Имена всех четных форм: ")
+		for (i = 0; i < x.length; i++){
+
+			if (i % 2 == 1){
+				
+				if (i != (x.length - 1)){
+					
+					document.write(x[i].name + ', '); 
+
+				}
+				else{
+
+					document.write(x[i].name + '.');
+
+				}
+			} 
+
+		}
+
+		x = document.getElementsByTagName("input");
+
+		for (i = 0; i < x.length; i++){
+
+			if (x[i].value == "Показать имя формы:" ){
+
+				x[i].style.margin = '3px';
+				x[i].style.padding = '15px 30px';
+				x[i].style.backgroundColor = '#dcdcdc';
+				x[i].style.borderRadius = '10px';
+				x[i].style.backgroundImage = 'url("https://img.icons8.com/fluent/2x/overview-pages-3.png")';
+				x[i].style.backgroundPosition = 'top 12px left 5px';
+				x[i].style.backgroundRepeat = 'no-repeat';
+				x[i].style.backgroundSize = '20px'; 
+	
+				x[i].onmouseout = function(){
+    			
+    				this.style.backgroundColor = "#dcdcdc";
+				
+				};
+				x[i].onmouseover = function(){
+    			
+    				this.style.backgroundColor = "#fff";
+				
+				};
+			} 
+
+			if (x[i].value == "Принадлежность" ){
+
+				x[i].style.margin = '3px';
+				x[i].style.padding = '15px 30px';
+				x[i].style.backgroundColor = '#dcdcdc';
+				x[i].style.borderRadius = '10px';
+				x[i].style.backgroundImage = 'url("https://img.icons8.com/officexs/72/code-file.png")';
+				x[i].style.backgroundPosition = 'top 12px left 5px';
+				x[i].style.backgroundRepeat = 'no-repeat';
+				x[i].style.backgroundSize = '20px'; 
+
+				x[i].onmouseout = function(){
+    			
+    				this.style.backgroundColor = "#dcdcdc";
+				
+				};
+				x[i].onmouseover = function(){
+    			
+    				this.style.backgroundColor = "#fff";
+				
+				};
+			}
+
+			if (x[i].value == "Сбросить" ){
+
+				x[i].style.margin = '3px';
+				x[i].style.padding = '15px 30px';
+				x[i].style.backgroundColor = '#dcdcdc';
+				x[i].style.borderRadius = '10px';
+				x[i].style.backgroundImage = 'url("https://img.icons8.com/office/2x/rotate.png")';
+				x[i].style.backgroundPosition = 'top 12px left 5px';
+				x[i].style.backgroundRepeat = 'no-repeat';
+				x[i].style.backgroundSize = '20px'; 
+
+				x[i].onmouseout = function(){
+    			
+    				this.style.backgroundColor = "#dcdcdc";
+				
+				};
+				x[i].onmouseover = function(){
+    			
+    				this.style.backgroundColor = "#fff";
+				
+				};			
+			} 
+
+
+			if (x[i].value == "Показать количество полей" ){
+
+				x[i].style.margin = '3px';
+				x[i].style.padding = '15px 30px';
+				x[i].style.backgroundColor = '#dcdcdc';
+				x[i].style.borderRadius = '10px';
+				x[i].style.backgroundImage = 'url("https://img.icons8.com/dusk/2x/thumbnails.png")';
+				x[i].style.backgroundPosition = 'top 12px left 5px';
+				x[i].style.backgroundRepeat = 'no-repeat';
+				x[i].style.backgroundSize = '20px';
+
+				x[i].onmouseout = function(){
+    			
+    				this.style.backgroundColor = "#dcdcdc";
+				
+				};
+				x[i].onmouseover = function(){
+    			
+    				this.style.backgroundColor = "#fff";
+				
+				};
+			}  
+
+		}
+
+		function Count_fields(myform){
+
+			y = 0;
+			x = document.getElementById(myform).getElementsByTagName("input");
+
+			for (i = 0; i < x.length; i++){
+
+				if (x[i].type != "button"){
+
+					y++;
+			
+				}
+
+			}
+
+			alert(y);
+
+		}
+
+	</script>
+	<br>
+	<a href="http://twitch.tv"> Видео-контент </a>
+	<br>
+	<a href="http://youtube.com"> Видео-контент </a>
+	<br>
+	<a href="http://coub.com"> Видео-контент </a>
+	<br>
+	<a href="http://netflix.com"> Видео-контент </a>
+	<br>
+	<a href="http://wikipedia.org"> Текст </a>
+	<br>
+	<a href="http://lurkmore.to"> Текст </a>
+	<br>
+	<a href="http://vk.com"> Социальная сеть </a>
+	<br>
+	<a href="http://facebook.com"> Социальная сеть </a>
+	<br>
+	<a href="http://ok.ru"> Социальная сеть </a>
+	<br>
+<!--<a href="http://poe.trade"> Рынок </a>
+	<br>-->
+	<br>
+	<script>
+		array_a = document.getElementsByTagName("a");
+
+		var arr_uniq_text = [];
+		//j = 0;
+
+		for (i = 0; i < array_a.length; i++){
+		
+			if ((array_a[i] != "") && (arr_uniq_text.includes(array_a[i].innerHTML) == 0)){
+
+				arr_uniq_text.push(array_a[i].innerHTML);
+				/*document.write("UNIQ TEXT " + arr_uniq_text[j] + '<br>');
+				j++;*/
+			} 
+
+		}
+	</script>
+	
+	<table BORDER="2" BORDER="100%" CELLPADDING="15" CELLSPACING="0">
+		<tr>
+			<td> Уникальный текст ссылки </td>
+			<td> Количество ссылок </td>
+			<td> Ссылки </td>
+		</tr>
+		<script>
+			
+		array_a = document.getElementsByTagName("a");
+
+		for (i = 0; i < arr_uniq_text.length; i++){
+			document.write("<tr><td>" + arr_uniq_text[i] + "</td>");
+			count = 0;
+			var href_arr = [];
+			for (j = 0; j < array_a.length; j++){
+			
+				if ((array_a[j] != "") && (array_a[j].innerHTML == arr_uniq_text[i])){
+
+					count++;
+					href_arr.push(array_a[j]);
+
+				} 
+
+			}
+			document.write("<td>" + count + "</td>");
+
+			document.write("<td>");
+			for (j = 0; j < href_arr.length; j++){
+
+				if (j != (href_arr.length - 1)){
+					
+					document.write(href_arr[j] + ', '); 
+
+				}
+				else{
+
+					document.write(href_arr[j] + '.');
+
+				}
+			}
+			document.write("</td></tr>");	
+		}	
+
+		</script>
+	</table>
+
+
+</body>
+
+</html>

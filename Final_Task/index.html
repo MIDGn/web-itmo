@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<script src="jquery-3.5.1.min.js"></script>
+		<script src="script.js"></script>
+
+		<title>Final Task</title>
+	</head>
+ <body>
+	
+	<div><h1>Динамическая таблица</h1></div>
+	
+	<div id="form">
+		<form>
+			<div><span>Количество строк: </span> <input style="width: 70px" type="number"  id="row" min="1" max="10" step="1" placeholder="Max = 10" required /></div><br>
+			<div><span>Количество столбцов: </span> <input style="width: 70px" type="number" id="col" min="1" max="10" step="1" placeholder="Max = 10" required /></div><br>
+			<input align="left" onclick="makeTable()" type="button" name="but1" value="Создать таблицу"> 
+		</form>
+	</div>
+	<br>
+	
+	<div id="list_of_functions" hidden>
+		<form>
+			<div>
+				<span>Изменить границы таблицы: </span>
+				<input style="width: 100px" type="number" id="width" min="1" max="999" step="1" onchange="changeWidth()" placeholder="Max = 999" />
+				
+				<select id="border" onchange="changeBorderStyle()">
+				<option disabled selected>Выберите границу</option>
+				<option value="none">Ничего</option>
+				<option value="dotted">Dot</option>
+				<option value="dashed">Dash</option>
+				<option value="solid">Solid</option>
+				<option value="double">Double</option>
+				<option value="groove">Groove</option>
+				<option value="ridge">Ridge</option>
+				<option value="inset">Inset</option>
+				<option value="outset">Outset</option>
+				</select>
+				
+				<input align="left" onclick="editTable()" id="dynamicButton" type="button" name="but2" value="Применить"> 
+			</div>
+			<br>
+			
+			<div>
+				<span>Добавить заголовок: </span>
+				<input type="text" id="caption" />
+				<input align="left" onclick="addCaption()" type="button" name="but3" value="Добавить"> 
+			</div>
+			<br>
+			
+			<div>
+				<span>Удалить строку: </span>
+				<input type="number" id="DelRow" min="1" max="999" step="1"/>
+				<input align="left" onclick="deleteRow()" type="button" name="but4" value="Удалить"> 
+			</div>
+			<br>
+			
+			<div>
+				<span>Случайный выбор: </span>
+				<input align="left" onclick="magic()" type="button" name="but5" value="Magic"> 
+			</div>
+			<br>
+			
+			<div>
+				<span>Удалить: </span>
+				<input align="left" onclick="deleteTable()" type="button" name="but6" value="Удалить таблицу"> 
+			</div>
+			<br>
+			
+		</form>
+	</div>
+	<br>
+	
+	
+ </body>
+</html>
+

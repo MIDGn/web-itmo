@@ -1,0 +1,17 @@
+url: {
+	protocol: "http",
+	domainname: "vk",
+	domain: "com",
+	port: 8888,
+	path: "folder/folder1/folder",
+	file: "index",
+	extension: "php",
+	parameters: [
+		param1:{
+		name: "field1",
+		value: "value1",
+		type: "number|string|boolean|unknown"},
+		param2:{}, ...
+	],
+	errors:"нет значения параметра|лишние слеши",	
+}

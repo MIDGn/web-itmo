@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<meta charset='utf-8'/>
+	</head>
+
+<body>
+
+	<script>
+	
+		var url_object = {};
+
+		//var url = "file:///D:/University/WEB/JavaScript/HW_Object_URL/main.html";
+		//var url = "http://www.example.com:80/path/to/myfile.html#SomewhereInTheDocument";
+		var url = "http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereInTheDocument";
+		//var url = "http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2";
+		//var url = "http://www.example.com:80/path/to/myfile.html";
+		document.write('URL: ' + url + '<br>');
+
+		if ((url.indexOf(':') == (-1)) | ((url.indexOf(':') >= url.indexOf('/')) && (url.indexOf(':') < url.indexOf('.')))) {
+			alert('Неправильно введен URL: ошибка определения протокола!');
+		}
+		else{
+
+			var url_protocol = url.substring(0, url.indexOf(':'));
+			document.write('Protocol: ' + url_protocol + '<br>');
+
+			url = url.substring(url.indexOf(':') + 1);
+
+			url_object.protocol = url_protocol;
+
+			var lash_count = 0;
+			while (url[0] == '/'){
+
+				url= url.substring(1);
+				lash_count++;
+
+			}
+
+			if (lash_count < 2){
+				alert('Неправильно введен URL: недостаточное количество "/"!');
+			}
+			else{
+
+				if (url_protocol == 'file'){
+					
+					if (lash_count == 2){
+					
+						alert('Неправильно введен URL: недостаточное количество "/"!');
+					
+					}
+					else{
+						if (lash_count == 3){
+							document.write('Domain Name: localhost<br> Domain: localdomain<br>');
+							url_object.domainname = 'localhost';
+							url_object.domain = 'localdomain';
+							if ((url.indexOf(':') > url.indexOf('/')) | (url.indexOf('/') < 0)){
+
+								alert('Ошибка определения расположения файла!')
+
+							}
+							else{
+							
+								path = url.substring(0, url.lastIndexOf('/'));
+								url_object.path = path;
+								document.write('Path: ' + path + '<br>');
+								url = url.substring(url.lastIndexOf('/') + 1);
+								if (url.indexOf('.') < 0){
+
+									alert('Ошибка определения имени и расширения файла!')
+
+								}
+								else{
+
+									file_name = url.substring(0, url.lastIndexOf('.'));
+									url_object.file = file_name;
+									document.write('File Name: ' + file_name + '<br>');
+									extension = url.substring(url.lastIndexOf('.') + 1);
+									url_object.extension = extension;
+									document.write('Extension: ' + extension + '<br>');
+									document.write('There are no parameters and anchors<br>');
+									url_object.parameters = 'Undefied';
+									url_object.anchors = 'Undefied';
+								}
+							}
+
+						}
+						else{
+
+							alert('Неправильно введен URL: избыточное количество "/"');
+
+						}
+					}
+				}
+				else{
+
+					if (lash_count > 2){
+
+						alert('Неправильно введен URL: избыточное количество "/"!');
+
+					}
+					else{
+
+						if ((url.indexOf(".") > -1 ) && (url.indexOf('.') < url.indexOf('/')) && ((url.indexOf(':') < 0) | (url.indexOf('.') < url.indexOf(':')))) {
+						
+							full_domain_name = url.substring(0, url.indexOf("/"));
+							url = url.substring(url.indexOf('/') + 1);
+							document.write('Full: ' + full_domain_name + '<br>');
+							domain_name = full_domain_name.substring(0, full_domain_name.lastIndexOf('.'));
+							document.write('Domain Name: ' + domain_name + '<br>');
+							url_object.domain_name = domain_name;
+							if (full_domain_name.indexOf(':') < 0){
+
+								domain = full_domain_name.substring(full_domain_name.lastIndexOf('.') + 1);
+								document.write('Domain: ' + domain + '<br>');
+								document.write('Port is not specified<br>');
+								url_object.domain = domain;
+								url_object.port = 'Undefied';
+								if (url.lastIndexOf('/') > 0){
+
+									if (((url.indexOf('?') > url.indexOf('/')) | (url.indexOf('?') < 0)) && ((url.indexOf('#') > url.indexOf('/')) | (url.indexOf('#') < 0))){
+
+										path = url.substring(0, url.lastIndexOf('/'));
+										url_object.path = path;
+										document.write('Path: ' + path + '<br>');
+										if (url.indexOf('?') > 0){
+
+											url = url.substring(url.lastIndexOf('/') + 1);
+											full_file_name = url.substring(0, url.indexOf('?'));
+											file_name = full_file_name.substring(0, full_file_name.lastIndexOf('.'));
+											url_object.file = file_name;
+											extension = full_file_name.substring(full_file_name.lastIndexOf('.') + 1);
+											url_object.extension = extension;
+											document.write('File Name: ' + file_name + '<br>');
+											document.write('Extension: ' + extension + '<br>');
+											if (url.indexOf('#') > 0){
+												i = url.indexOf('?');
+												j = url.indexOf('#');
+												anchor = url.substring(j + 1);
+												url_object.anchor = anchor
+												var new_end = url.lastIndexOf('&');
+												var parameters_array = [];
+												count = 1;
+												while(new_end > 0){
+
+													document.write('Параметр' + count + ': ' + url.substring(new_end + 1, j) + '<br>');
+													var one_parameter_array = url.substring(new_end + 1, j).split('=');
+													var parameters_object = {};
+													parameters_object.name = one_parameter_array[0];
+													parameters_object.value = one_parameter_array[1];
+													parameters_array.unshift(parameters_object);
+													url = url.substring(0, new_end);
+													j = new_end;
+													new_end = url.lastIndexOf('&');
+													count++;
+
+												}
+
+												document.write('Параметр' + count + ': ' + url.substring(i + 1) + '<br>');
+												var one_parameter_array = url.substring(i + 1).split('=');
+												var parameters_object = {};
+												parameters_object.name = one_parameter_array[0];
+												parameters_object.value = one_parameter_array[1];
+												parameters_array.unshift(parameters_object);
+												url_object.parameters = parameters_array;
+												document.write('Anchor: ' + anchor);
+									
+											}
+											else{
+
+												i = url.indexOf('?');
+												var new_end = url.lastIndexOf('&');
+												var parameters_array = [];
+												count = 1;
+												while(new_end > 0){
+
+													document.write('Параметр' + count + ': ' + url.substring(new_end + 1) + '<br>');
+													var one_parameter_array = url.substring(new_end + 1).split('=');
+													var parameters_object = {};
+													parameters_object.name = one_parameter_array[0];
+													parameters_object.value = one_parameter_array[1];
+													parameters_array.unshift(parameters_object);
+													url = url.substring(0, new_end);
+													new_end = url.lastIndexOf('&');
+													count++;
+												}
+
+												document.write('Параметр' + count + ': ' + url.substring(i + 1) + '<br>');
+												var one_parameter_array = url.substring(i + 1).split('=');
+												var parameters_object = {};
+												parameters_object.name = one_parameter_array[0];
+												parameters_object.value = one_parameter_array[1];
+												parameters_array.unshift(parameters_object);
+												url_object.parameters = parameters_array;
+												document.write('No anchors in URL');
+												url_object.anchors = 'Undefied';
+
+											}	
+										}
+										else{
+
+											if (url.indexOf('#') > 0){
+
+												url = url.substring(url.lastIndexOf('/') + 1);
+												full_file_name = url.substring(0, url.indexOf('#'));
+												file_name = full_file_name.substring(0, full_file_name.lastIndexOf('.'));
+												url_object.file = file_name;
+												extension = full_file_name.substring(full_file_name.lastIndexOf('.') + 1);
+												url_object.extension = extension;
+												document.write('File Name: ' + file_name + '<br>');
+												document.write('Extension: ' + extension + '<br>');
+												document.write('No parameters in URL' + '<br>');
+												url_object.parameters = 'Undefied';
+												anchor = url.substring(url.indexOf('#') + 1);
+												document.write('Anchor: ' + anchor + '<br>'); 
+												url_object.anchors = anchor;
+											}
+											else{
+												url = url.substring(url.lastIndexOf('/') + 1);
+												file_name = url.substring(0, url.lastIndexOf('.'));
+												url_object.file = file_name;
+												document.write('File Name: ' + file_name + '<br>');
+												extension = url.substring(url.lastIndexOf('.') + 1);
+												url_object.extension = extension;
+												document.write('Extension: ' + extension + '<br>');
+												document.write('There are no parameters and anchors<br>');
+												url_object.parameters = 'Undefied';
+												url_object.anchors = 'Undefied';
+											}
+										}
+									}
+								}
+							}
+							else{
+							
+								domain = full_domain_name.substring(full_domain_name.lastIndexOf('.') + 1, full_domain_name.indexOf(':'));
+								document.write('Domain: ' + domain + '<br>');
+								port = full_domain_name.substring(full_domain_name.indexOf(':') + 1);
+								document.write('Port: ' + port + '<br>');
+								url_object.domain = domain;
+								url_object.port = port;
+								if (url.lastIndexOf('/') > 0){
+
+									if (((url.indexOf('?') > url.indexOf('/')) | (url.indexOf('?') < 0)) && ((url.indexOf('#') > url.indexOf('/')) | (url.indexOf('#') < 0))){
+
+										path = url.substring(0, url.lastIndexOf('/'));
+										url_object.path = path;
+										document.write('Path: ' + path + '<br>');
+										if (url.indexOf('?') > 0){
+
+											url = url.substring(url.lastIndexOf('/') + 1);
+											full_file_name = url.substring(0, url.indexOf('?'));
+											file_name = full_file_name.substring(0, full_file_name.lastIndexOf('.'));
+											url_object.file = file_name;
+											extension = full_file_name.substring(full_file_name.lastIndexOf('.') + 1);
+											url_object.extension = extension;
+											document.write('File Name: ' + file_name + '<br>');
+											document.write('Extension: ' + extension + '<br>');
+											if (url.indexOf('#') > 0){
+												i = url.indexOf('?');
+												j = url.indexOf('#');
+												anchor = url.substring(j + 1);
+												url_object.anchor = anchor
+												var new_end = url.lastIndexOf('&');
+												var parameters_array = [];
+												count = 1;
+												while(new_end > 0){
+
+													document.write('Параметр' + count + ': ' + url.substring(new_end + 1, j) + '<br>');
+													var one_parameter_array = url.substring(new_end + 1, j).split('=');
+													var parameters_object = {};
+													parameters_object.name = one_parameter_array[0];
+													parameters_object.value = one_parameter_array[1];
+													parameters_array.unshift(parameters_object);
+													url = url.substring(0, new_end);
+													j = new_end;
+													new_end = url.lastIndexOf('&');
+													count++;
+
+												}
+
+												document.write('Параметр' + count + ': ' + url.substring(i + 1) + '<br>');
+												var one_parameter_array = url.substring(i + 1).split('=');
+												var parameters_object = {};
+												parameters_object.name = one_parameter_array[0];
+												parameters_object.value = one_parameter_array[1];
+												parameters_array.unshift(parameters_object);
+												url_object.parameters = parameters_array;
+												document.write('Anchor: ' + anchor);
+									
+											}
+											else{
+
+												i = url.indexOf('?');
+												var new_end = url.lastIndexOf('&');
+												var parameters_array = [];
+												count = 1;
+												while(new_end > 0){
+
+													document.write('Параметр' + count + ': ' + url.substring(new_end + 1) + '<br>');
+													var one_parameter_array = url.substring(new_end + 1).split('=');
+													var parameters_object = {};
+													parameters_object.name = one_parameter_array[0];
+													parameters_object.value = one_parameter_array[1];
+													parameters_array.unshift(parameters_object);
+													url = url.substring(0, new_end);
+													new_end = url.lastIndexOf('&');
+													count++;
+												}
+
+												document.write('Параметр' + count + ': ' + url.substring(i + 1) + '<br>');
+												var one_parameter_array = url.substring(i + 1).split('=');
+												var parameters_object = {};
+												parameters_object.name = one_parameter_array[0];
+												parameters_object.value = one_parameter_array[1];
+												parameters_array.unshift(parameters_object);
+												url_object.parameters = parameters_array;
+												document.write('No anchors in URL');
+												url_object.anchors = 'Undefied';
+
+											}	
+										}
+										else{
+
+											if (url.indexOf('#') > 0){
+
+												url = url.substring(url.lastIndexOf('/') + 1);
+												full_file_name = url.substring(0, url.indexOf('#'));
+												file_name = full_file_name.substring(0, full_file_name.lastIndexOf('.'));
+												url_object.file = file_name;
+												extension = full_file_name.substring(full_file_name.lastIndexOf('.') + 1);
+												url_object.extension = extension;
+												document.write('File Name: ' + file_name + '<br>');
+												document.write('Extension: ' + extension + '<br>');
+												document.write('No parameters in URL' + '<br>');
+												url_object.parameters = 'Undefied';
+												anchor = url.substring(url.indexOf('#') + 1);
+												document.write('Anchor: ' + anchor + '<br>'); 
+												url_object.anchors = anchor;
+											}
+											else{
+												url = url.substring(url.lastIndexOf('/') + 1);
+												file_name = url.substring(0, url.lastIndexOf('.'));
+												url_object.file = file_name;
+												document.write('File Name: ' + file_name + '<br>');
+												extension = url.substring(url.lastIndexOf('.') + 1);
+												url_object.extension = extension;
+												document.write('Extension: ' + extension + '<br>');
+												document.write('There are no parameters and anchors<br>');
+												url_object.parameters = 'Undefied';
+												url_object.anchors = 'Undefied';
+											}
+										}
+									}
+								}
+							}
+						}
+						else{
+
+							alert('Неправильный URL: невозможно определить домен!');
+
+						}
+					}
+				}
+			}
+		}
+	console.log(url_object);	
+	</script>		 
+</body>
+
+</html>
