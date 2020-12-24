@@ -4,16 +4,10 @@ function makeTable() {
     var body = document.querySelector("body"), table = document.createElement("table"), tr, td, input, button;
     caption = document.createElement("caption");
     table.appendChild(caption);
-    id = document.createElement("id");
-    table.appendChild(id);
-    table.id = "MainTable";
-    cellId = 1;
     for(var i = 0; i < rows; i++){
         tr = document.createElement("tr");
             for(var j = 0; j < cols; j++){
                 td = document.createElement("td");
-                td.id = cellId;
-                cellId++;
                 input = document.createElement("textarea");
                 button = document.createElement("input");
                 button.type = "button";
@@ -28,6 +22,7 @@ function makeTable() {
     body.appendChild(table);
     $("#form").attr("hidden", "");
     $("#list_of_functions").removeAttr("hidden");
+    console.log(table);
 }
 
 function saveTextArea(){
@@ -87,11 +82,11 @@ function getRandomIntInc(min, max) {
 function magic() {
     var body = document.querySelector("body"),
         table = document.querySelector("table");
-        
-    randCellId = getRandomIntInc(1, (cols * rows));
-    randCell = document.getElementById(randCellId);
+    
+    randCellRow = getRandomIntInc(1, table.rows.length);
+    randCellCol = getRandomIntInc(0, cols - 1);
+    randCell = table.children[randCellRow].children[randCellCol];
     rand = getRandomIntInc(1, 2);
-
     if (rand == 1 && randCell.children[0].tagName=="SPAN"){
         randCell.children[0].remove();
         input = document.createElement("textarea");
@@ -103,7 +98,7 @@ function magic() {
         randCell.appendChild(button);
         return;
     } 
-    
+
     colorR = getRandomIntInc(1, 255);
     colorG = getRandomIntInc(1, 255);
     colorB = getRandomIntInc(1, 255);
